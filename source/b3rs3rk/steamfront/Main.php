@@ -19,47 +19,111 @@
  * @copyright 2016
  */
 
-namespace b3rs3rk\steamfront {
+namespace b3rs3rk\steamfront;
+
+use b3rs3rk\steamfront\http\Http;
+use b3rs3rk\steamfront\data\App;
+
+/**
+ * Class SteamFront
+ *
+ * @package steamfront\source
+ */
+class Main
+{
+	/**
+	 * Top domain URL of the Steam API
+	 */
+	const STEAM_API_ROOT = 'https://api.steampowered.com/';
 
 	/**
-	 * Class SteamFront
-	 *
-	 * @package steamfront\source
+	 * Top domain URL of the Steam API
 	 */
-	class Main
+	const STEAM_STORE_ROOT = 'https://store.steampowered.com/';
+
+	/**
+	 * Requested return format for full list
+	 */
+	const STEAM_API_RESP_TYPE = '?format=json';
+
+	/**
+	 * Path to the JSON encoded list of all Steam AppIDs
+	 */
+	const FULL_LIST_PATH = 'ISteamApps/GetAppList/v2/';
+
+	/**
+	 * Path to featured apps request
+	 */
+	const FEATURED_PATH = 'api/featured/';
+
+	/**
+	 * Path to featured categories request';
+	 */
+	const FEATURED_CATS_PATH = 'api/featuredcategories/';
+
+	/**
+	 * Path to App details request
+	 */
+	const DETAILS_PATH = 'api/appdetails?appids=';
+
+	/**
+	 * Gets requested data using Httpful -- automatically detects JSON response and decodes
+	 *
+	 * @param string $root
+	 * @param string $request
+	 *
+	 * @return Http
+	 */
+	public function get($root, $request)
 	{
-		/**
-		 * Top domain URL of the Steam API
-		 */
-		const STEAM_API_ROOT = 'https://api.steampowered.com/';
+		$url = $root . $request;
 
-		/**
-		 * The Requested format type
-		 */
-		const STEAM_API_RESP_TYPE = '?format=json';
+		 $response = new Http($url);
 
-		/**
-		 * SteamFront constructor.
-		 *
-		 * @param $options
-		 */
-		public function __construct($options)
-		{
-			;
+		if (isset($response->success) && $response->success === true) {
+			return new App($response->body);
 		}
+	}
 
-		/**
-		 * Gets requested data using Httpful
-		 *
-		 * @param string $request
-		 *
-		 * @return \Httpful\Response
-		 */
-		public function get($request)
-		{
-			$url = self::STEAM_API_ROOT . $request . self::STEAM_API_RESP_TYPE;
+	/**
+	 * Retrieves Full Stea Library Info and returns in JSON decoded format
+	 *
+	 * @return \Httpful\Response
+	 */
+	public function getFullAppList()
+	{
+		return $this->get(self::STEAM_API_ROOT, self::FULL_LIST_PATH . self::STEAM_API_RESP_TYPE);
+	}
 
-			return \Httpful\Request::get($url)->send();
-		}
+	/**
+	 * Retrieves Featured Steam Games Info and returns in JSON decoded format
+	 *
+	 * @return \Httpful\Response
+	 */
+	public function getFeaturedApps()
+	{
+		return $this->get(self::STEAM_STORE_ROOT, self::FEATURED_PATH);
+	}
+
+	/**
+	 * Retrieves Featured Steam Games Info and returns in JSON decoded format
+	 *
+	 * @return \Httpful\Response
+	 */
+	public function getFeaturedCategories()
+	{
+		return $this->get(self::STEAM_STORE_ROOT, self::FEATURED_CATS_PATH);
+	}
+
+	/**
+	 * Retrieves App information for a specific AppID
+	 *
+	 * @param int $appId
+	 *
+	 * @return \Httpful\Response
+	 */
+	public function getAppDetails($appId)
+	{
+		return $this->get(self::STEAM_STORE_ROOT, self::DETAILS_PATH . $appId);
 	}
 }

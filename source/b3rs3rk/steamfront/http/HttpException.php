@@ -19,25 +19,6 @@
  * @copyright 2016
  */
 
-namespace b3rs3rk\steamfront
-{
-	/**
-	 * Class App
-	 *
-	 * @package steamfront
-	 */
-	class App extends Main
-	{
-		const APP_LIST_URL = 'ISteamApps/GetAppList/v2/';
+namespace b3rs3rk\steamfront\http;
 
-		public function __construct($options)
-		{
-			parent::__construct($options);
-		}
-
-		public function getFullAppList()
-		{
-			parent::get(self::APP_LIST_URL);
-		}
-	}
-}
+class HttpException extends \Exception {}

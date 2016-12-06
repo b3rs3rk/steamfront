@@ -19,20 +19,11 @@
  * @copyright 2016
  */
 
-require(__DIR__ . '/../source/b3rs3rk/steamfront/Main.php');
-require(__DIR__ . '/../source/b3rs3rk/steamfront/App.php');
+namespace b3rs3rk\steamfront\data;
 
-$steamApp = new b3rs3rk\steamfront\App(array());
-
-$testAppID = isset($argv[1]) && is_numeric($argv[1]) ? $argv[1] : 30;
-
-$test = $steamApp->getAppDetails($testAppID);
-
-if ($test instanceof \Httpful\Response) {
-	if (isset($test->body)) {
-		var_dump($test->body->$testAppID);
-		exit(0);
-	} else {
-		exit(1);
-	}
+class Requirements
+{
+	protected $pc;
+	protected $mac;
+	protected $linux;
 }

@@ -1,1 +1,4 @@
 .idea
+libraries/composer/
+Would skip repository libraries/nategood/httpful
+tests/

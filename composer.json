@@ -1,12 +1,5 @@
 {
   "name": "b3rs3rk/steamfront",
-  "config": {
-    "process-timeout": 3600,
-    "preferred-install": {
-      "*": "source"
-    },
-    "vendor-dir": "libraries"
-  },
   "description": "PHP Wrapper for Accessing the Steam Storefront API",
   "minimum-stability": "stable",
   "license": "GPL-3.0",
@@ -17,11 +10,8 @@
     }
   ],
   "autoload": {
-    "psr-4": {
-      "b3rs3rk\\": ""
+    "psr-0": {
+      "b3rs3rk\\": "source"
     }
-  },
-  "require": {
-    "nategood/httpful": "*"
   }
 }
