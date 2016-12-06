@@ -21,7 +21,7 @@
 
 namespace b3rs3rk\steamfront\data;
 
-class Genres
+class Category
 {
 
 }

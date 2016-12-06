@@ -69,12 +69,12 @@ class App
 	public $releasedate;
 
 	/**
-	 * @var
+	 * @var Developers
 	 */
 	public $developers;
 
 	/**
-	 * @var
+	 * @var Publishers
 	 */
 	public $publishers;
 
@@ -84,7 +84,7 @@ class App
 	public $pricing;
 
 	/**
-	 * @var Packages
+	 * @var Package
 	 */
 	public $packages;
 
@@ -94,12 +94,12 @@ class App
 	public $platforms;
 
 	/**
-	 * @var string
+	 * @var array
 	 */
 	public $metacritic;
 
 	/**
-	 * @var Categories
+	 * @var Category
 	 */
 	public $categories;
 
@@ -111,25 +111,32 @@ class App
 	public function __construct(array $data)
 	{
 		// General
-		$this->type = $data['type'];
-		$this->name = $data['name'];
-		$this->appid = $data['steam_appid'];
-		$this->requiredage = $data['required_age'];
-		$this->languages = $data['supported_languages'];
-		$this->website = $data['website'];
-		$this->developers = $data['devlopers'];
-		$this->publishers = $data['publishers'];
-		$this->metacritic = $data['metacritic'];
-		$this->recommends = $data['recommendations'];
+		$this->type         = $data['type'];
+		$this->name         = $data['name'];
+		$this->appid        = $data['steam_appid'];
+		$this->requiredage  = $data['required_age'];
+		$this->languages    = $data['supported_languages'];
+		$this->website      = $data['website'];
+		$this->developers   = $data['devlopers'];
+		$this->publishers   = $data['publishers'];
+		$this->metacritic   = $data['metacritic'];
+		$this->recommends   = $data['recommendations'];
 		$this->achievements = $data['achievements'];
-		$this->releasedate = $data['release_date'];
-		$this->supportinfo = $data['support_info'];
+		$this->releasedate  = $data['release_date'];
+		$this->supportinfo  = $data['support_info'];
 
 		// Descriptions
-		$this->description = new Description($data);
+		$this->description  = new Description($data);
 		// Requirements
 		$this->requirements = new Requirements($data);
 		// Pricing
-		$this->pricing = new Pricing($data);
+		$this->pricing      = new Pricing($data);
+		// Platforms
+		$this->platforms    = new Platforms($data);
+
+		// Categories
+		foreach($data['categories'] AS $category) {
+			$this->categories[] = new Category($category);
+		}
 	}
 }

@@ -29,17 +29,17 @@ namespace b3rs3rk\steamfront\data;
 class Platforms
 {
 	/**
-	 * @var
+	 * @var bool Available for Windows
 	 */
 	public $windows;
 
 	/**
-	 * @var
+	 * @var bool Available for Mac
 	 */
 	public $mac;
 
 	/**
-	 * @var
+	 * @var bool Available for Linux
 	 */
 	public $linux;
 }

@@ -21,34 +21,7 @@
 
 namespace b3rs3rk\steamfront\data;
 
-/**
- * Class Requirements
- *
- * @package b3rs3rk\steamfront\data
- */
-class Requirements
+class Image
 {
-	/**
-	 * @var array
-	 */
-	public $pc;
 
-	/**
-	 * @var array
-	 */
-	public $mac;
-
-	/**
-	 * @var array
-	 */
-	public $linux;
-
-	public function __construct($data)
-	{
-		$this->pc    = $data['pc_requirements'];
-		$this->mac   = $data['mac_requirements'];
-		$this->linux = $data['linux_requirements'];
-
-		return $this;
-	}
 }
