@@ -29,17 +29,17 @@ namespace b3rs3rk\steamfront\data;
 class Images
 {
 	/**
-	 * @var
+	 * @var Image
 	 */
 	public $headers;
 
 	/**
-	 * @var
+	 * @var Image
 	 */
 	public $screenshots;
 
 	/**
-	 * @var
+	 * @var Image
 	 */
 	public $backgrounds;
 }

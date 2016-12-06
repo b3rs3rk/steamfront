@@ -21,7 +21,32 @@
 
 namespace b3rs3rk\steamfront\data;
 
+/**
+ * Class Category
+ *
+ * @package b3rs3rk\steamfront\data
+ */
 class Category
 {
+	/**
+	 * @var int The ID of the category
+	 */
+	public $id;
+	/**
+	 * @var string The category description
+	 */
+	public $description;
 
+	/**
+	 * Category constructor.
+	 *
+	 * @param $data
+	 */
+	public function __construct($data)
+	{
+		$this->id = $data['id'];
+		$this->description = $data['description'];
+
+		return $this;
+	}
 }

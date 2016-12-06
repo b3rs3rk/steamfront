@@ -24,10 +24,16 @@ namespace b3rs3rk\steamfront\data;
 /**
  * Class App - provides object oriented response mapping for Steam Apps
  *
- * @package b3rs3rk\steamfront
+ * @package b3rs3rk\steamfront\data
  */
 class App
 {
+
+	/**
+	 * @var array The Data retrieved from Steam Store API
+	 */
+	private $data;
+
 	/**
 	 * @var string Type of App
 	 */
@@ -99,31 +105,43 @@ class App
 	public $metacritic;
 
 	/**
-	 * @var Category
+	 * @var array of Category
 	 */
 	public $categories;
+
+	/**
+	 * @var array of Genre
+	 */
+	public $genres;
 
 	/**
 	 * @var Images
 	 */
 	public $images;
 
+	/**
+	 * App constructor.
+	 *
+	 * @param array $data
+	 */
 	public function __construct(array $data)
 	{
+		$this->data = $data;
+
 		// General
-		$this->type         = $data['type'];
-		$this->name         = $data['name'];
-		$this->appid        = $data['steam_appid'];
-		$this->requiredage  = $data['required_age'];
-		$this->languages    = $data['supported_languages'];
-		$this->website      = $data['website'];
-		$this->developers   = $data['devlopers'];
-		$this->publishers   = $data['publishers'];
-		$this->metacritic   = $data['metacritic'];
-		$this->recommends   = $data['recommendations'];
-		$this->achievements = $data['achievements'];
-		$this->releasedate  = $data['release_date'];
-		$this->supportinfo  = $data['support_info'];
+		$this->type         = $this->data['type'];
+		$this->name         = $this->data['name'];
+		$this->appid        = $this->data['steam_appid'];
+		$this->requiredage  = $this->data['required_age'];
+		$this->languages    = $this->data['supported_languages'];
+		$this->website      = $this->data['website'];
+		$this->developers   = $this->data['devlopers'];
+		$this->publishers   = $this->data['publishers'];
+		$this->metacritic   = $this->data['metacritic'];
+		$this->recommends   = $this->data['recommendations'];
+		$this->achievements = $this->data['achievements'];
+		$this->releasedate  = $this->data['release_date'];
+		$this->supportinfo  = $this->data['support_info'];
 
 		// Descriptions
 		$this->description  = new Description($data);
@@ -138,5 +156,11 @@ class App
 		foreach($data['categories'] AS $category) {
 			$this->categories[] = new Category($category);
 		}
+		// Genres
+		foreach($data['genres'] AS $genre) {
+			$this->genres[] = new Genre($genre);
+		}
+
+		$this->images = new Images($data);
 	}
 }

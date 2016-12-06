@@ -21,7 +21,32 @@
 
 namespace b3rs3rk\steamfront\data;
 
+/**
+ * Class Genre
+ *
+ * @package b3rs3rk\steamfront\data
+ */
 class Genre
 {
+	/**
+	 * @var int The ID of the genre
+	 */
+	public $id;
+	/**
+	 * @var string The genre description
+	 */
+	public $description;
 
+	/**
+	 * Genre constructor.
+	 *
+	 * @param $data
+	 */
+	public function __construct($data)
+	{
+		$this->id = $data['id'];
+		$this->description = $data['description'];
+
+		return $this;
+	}
 }
