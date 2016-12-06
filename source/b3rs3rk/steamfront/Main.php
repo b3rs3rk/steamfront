@@ -67,21 +67,23 @@ class Main
 	const DETAILS_PATH = 'api/appdetails?appids=';
 
 	/**
-	 * Gets requested data using Httpful -- automatically detects JSON response and decodes
+	 * Gets requested data using Http client and returns the json decoded response
 	 *
-	 * @param string $root
-	 * @param string $request
+	 * @param string $root The root url of the request
+	 * @param string $path The path of the request
 	 *
-	 * @return App
+	 * @return array|bool The JSON decoded response or false
 	 */
-	public function get($root, $request)
+	public function get($root, $path)
 	{
-		$url = $root . $request;
+		$url = $root . $path;
 
-		 $response = new Http($url);
+		 $response = json_decode(new Http($url), true);
 
-		if (isset($response->success) && $response->success === true) {
-			return new App($response->body);
+		if (isset($response['success']) && $response['success'] === true) {
+			return $response;
+		} else {
+			return false;
 		}
 	}
 
@@ -96,8 +98,7 @@ class Main
 			$this->get(
 				self::STEAM_API_ROOT,
 				self::FULL_LIST_PATH . self::STEAM_API_RESP_TYPE
-			),
-			true
+			), true
 		);
 	}
 
@@ -108,7 +109,7 @@ class Main
 	 */
 	public function getFeaturedApps()
 	{
-		return $this->get(self::STEAM_STORE_ROOT, self::FEATURED_PATH);
+		return new App($this->get(self::STEAM_STORE_ROOT, self::FEATURED_PATH));
 	}
 
 	/**
@@ -118,7 +119,7 @@ class Main
 	 */
 	public function getFeaturedCategories()
 	{
-		return $this->get(self::STEAM_STORE_ROOT, self::FEATURED_CATS_PATH);
+		return new App($this->get(self::STEAM_STORE_ROOT, self::FEATURED_CATS_PATH));
 	}
 
 	/**
@@ -130,6 +131,6 @@ class Main
 	 */
 	public function getAppDetails($appId)
 	{
-		return $this->get(self::STEAM_STORE_ROOT, self::DETAILS_PATH . $appId);
+		return new App($this->get(self::STEAM_STORE_ROOT, self::DETAILS_PATH . $appId));
 	}
 }
