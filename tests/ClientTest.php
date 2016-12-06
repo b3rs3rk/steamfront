@@ -25,10 +25,6 @@ $client = new b3rs3rk\steamfront\Main();
 
 $testAppID = isset($argv[1]) && is_numeric($argv[1]) ? $argv[1] : 30;
 
-var_dump($client->get($client::STEAM_STORE_ROOT, $client::DETAILS_PATH . $testAppID));
-
-/*
-
 $test = $client->getAppDetails($testAppID);
 
 if ($test instanceof b3rs3rk\steamfront\data\App) {
@@ -39,4 +35,3 @@ if ($test instanceof b3rs3rk\steamfront\data\App) {
 		exit(1);
 	}
 }
-*/

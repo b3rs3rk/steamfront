@@ -46,7 +46,5 @@ class Category
 	{
 		$this->id = $data['id'];
 		$this->description = $data['description'];
-
-		return $this;
 	}
 }

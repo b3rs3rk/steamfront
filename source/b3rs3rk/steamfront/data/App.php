@@ -28,16 +28,10 @@ namespace b3rs3rk\steamfront\data;
  */
 class App
 {
-
 	/**
-	 * @var array The Data retrieved from Steam Store API
+	 * @var int ID of the App
 	 */
-	private $data;
-
-	/**
-	 * @var string Type of App
-	 */
-	public $type;
+	public $appid;
 
 	/**
 	 * @var string Name of App
@@ -45,9 +39,14 @@ class App
 	public $name;
 
 	/**
-	 * @var int ID of the App
+	 * @var string Type of App
 	 */
-	public $appid;
+	public $type;
+
+	/**
+	 * @var string Date of release
+	 */
+	public $releasedate;
 
 	/**
 	 * @var int Age Requirement
@@ -60,44 +59,44 @@ class App
 	public $languages;
 
 	/**
+	 * @var array
+	 */
+	public $description;
+
+	/**
+	 * @var array
+	 */
+	public $developers;
+
+	/**
+	 * @var array
+	 */
+	public $publishers;
+
+	/**
 	 * @var string Original app's website
 	 */
 	public $website;
 
 	/**
-	 * @var Requirements
+	 * @var array
+	 */
+	public $supportinfo;
+
+	/**
+	 * @var array
+	 */
+	public $platforms;
+
+	/**
+	 * @var array
 	 */
 	public $requirements;
 
 	/**
-	 * @var string Date of release
-	 */
-	public $releasedate;
-
-	/**
-	 * @var Developers
-	 */
-	public $developers;
-
-	/**
-	 * @var Publishers
-	 */
-	public $publishers;
-
-	/**
-	 * @var Pricing
+	 * @var array
 	 */
 	public $pricing;
-
-	/**
-	 * @var Package
-	 */
-	public $packages;
-
-	/**
-	 * @var Platforms
-	 */
-	public $platforms;
 
 	/**
 	 * @var array
@@ -105,19 +104,29 @@ class App
 	public $metacritic;
 
 	/**
-	 * @var array of Category
+	 * @var array
 	 */
 	public $categories;
 
 	/**
-	 * @var array of Genre
+	 * @var array
 	 */
 	public $genres;
 
 	/**
-	 * @var Images
+	 * @var array
 	 */
 	public $images;
+
+	/**
+	 * @var array
+	 */
+	public $achievements;
+
+	/**
+	 * @var array
+	 */
+	public $recommendations;
 
 	/**
 	 * App constructor.
@@ -128,39 +137,128 @@ class App
 	{
 		$this->data = $data;
 
-		// General
-		$this->type         = $this->data['type'];
-		$this->name         = $this->data['name'];
-		$this->appid        = $this->data['steam_appid'];
-		$this->requiredage  = $this->data['required_age'];
-		$this->languages    = $this->data['supported_languages'];
-		$this->website      = $this->data['website'];
-		$this->developers   = $this->data['devlopers'];
-		$this->publishers   = $this->data['publishers'];
-		$this->metacritic   = $this->data['metacritic'];
-		$this->recommends   = $this->data['recommendations'];
-		$this->achievements = $this->data['achievements'];
-		$this->releasedate  = $this->data['release_date'];
-		$this->supportinfo  = $this->data['support_info'];
+		$this->setCritical();
+		$this->setRatings();
+		$this->setDemographics();
+		$this->setDescriptions();
+		$this->setSpecifications();
+		$this->setClassifications();
+		$this->setImages();
+		$this->setPricing();
 
-		// Descriptions
-		$this->description  = new Description($data);
-		// Requirements
-		$this->requirements = new Requirements($data);
-		// Pricing
-		$this->pricing      = new Pricing($data);
-		// Platforms
-		$this->platforms    = new Platforms($data);
+		unset($this->data);
+	}
 
-		// Categories
-		foreach($data['categories'] AS $category) {
-			$this->categories[] = new Category($category);
+	/**
+	 * Sets absolutely critical info
+	 */
+	protected function setCritical()
+	{
+		$this->setNonMatching('appid', 'steam_appid');
+		$this->setMatching('type');
+		$this->setMatching('name');
+		$this->setNonMatching('releasedate', 'release_date');
+	}
+
+	/**
+	 * Assigns ratings information to the data return
+	 */
+	protected function setRatings()
+	{
+		$this->setMatching('metacritic');
+		$this->setMatching('recommendations');
+	}
+
+	/**
+	 * Assigns demographics information to the data return
+	 */
+	protected function setDemographics()
+	{
+		$this->setNonMatching('requiredage', 'required_age');
+		$this->setNonMatching('languages', 'supoorted_languages');
+	}
+
+	/**
+	 * Assigns authoring information to the data return
+	 */
+	protected function setAuthoring()
+	{
+		$this->setMatching('developers');
+		$this->setMatching('publishers');
+		$this->setMatching('website');
+		$this->setNonMatching('supportinfo', 'support_info');
+	}
+
+	/**
+	 * Assigns descriptions to the data return
+	 */
+	protected function setDescriptions()
+	{
+		$this->description['detailed'] = $this->data['detailed_description'];
+		$this->description['short']    = $this->data['short_description'];
+		$this->description['about']    = $this->data['about_the_game'];
+	}
+
+	/**
+	 * Assigns specifications to the data return
+	 */
+	protected function setSpecifications()
+	{
+		$this->setMatching('platforms');
+		$this->requirements['pc']    = $this->data['pc_requirements'];
+		$this->requirements['mac']   = $this->data['mac_requirements'];
+		$this->requirements['linux'] = $this->data['linux_requirements'];
+	}
+
+	/**
+	 * Assigns classification to the data return
+	 */
+	protected function setClassifications()
+	{
+		$this->setMatching('categories');
+		$this->setMatching('genres');
+	}
+
+	/**
+	 * Assigns all imaged based information to one sub-key in the return
+	 */
+	protected function setImages()
+	{
+		$this->images['header']      = $this->data['header_image'];
+		$this->images['background']  = $this->data['background'];
+		$this->images['screenshots'] = $this->data['screenshots'];
+	}
+
+	/**
+	 * Assigns the pricing information to the data in the return
+	 */
+	protected function setPricing()
+	{
+		$this->setNonMatching('pricing', 'price_overview');
+	}
+
+	/**
+	 * Sets the named class value to the differently named key
+	 *
+	 * @param string $classvar
+	 * @param string $key
+	 */
+	protected function setNonMatching($classvar, $key)
+	{
+		if (isset($this->data[$key])) {
+			$this->$classvar = $this->data[$key];
 		}
-		// Genres
-		foreach($data['genres'] AS $genre) {
-			$this->genres[] = new Genre($genre);
-		}
+	}
 
-		$this->images = new Images($data);
+	/**
+	 * Sets the class value to the key value with the same key name
+	 *
+	 * @param string $key
+	 */
+	protected function setMatching($key)
+	{
+		if (isset($this->data[$key])) {
+			$this->$key = $this->data[$key];
+		}
 	}
 }

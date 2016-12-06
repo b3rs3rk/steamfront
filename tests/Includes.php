@@ -21,6 +21,13 @@
 
 $path = '/../source/b3rs3rk/steamfront/';
 
+//Main Includes
 require_once (__DIR__ . $path . 'Main.php');
+
+//Data Includes
+require_once (__DIR__ . $path . '/data/App.php');
+require_once (__DIR__ . $path . '/data/Category.php');
+
+//HTTP Includes
 require_once (__DIR__ . $path . '/http/Http.php');
 require_once (__DIR__ . $path . '/http/HttpException.php');
