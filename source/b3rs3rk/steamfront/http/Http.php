@@ -21,8 +21,6 @@
 
 namespace b3rs3rk\steamfront\http;
 
-require(__DIR__ . '/../../../../libraries/nategood/httpful/bootstrap.php');
-
 /**
  * Class Http
  *

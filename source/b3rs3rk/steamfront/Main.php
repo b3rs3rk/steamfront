@@ -72,7 +72,7 @@ class Main
 	 * @param string $root
 	 * @param string $request
 	 *
-	 * @return Http
+	 * @return App
 	 */
 	public function get($root, $request)
 	{
@@ -88,17 +88,23 @@ class Main
 	/**
 	 * Retrieves Full Stea Library Info and returns in JSON decoded format
 	 *
-	 * @return \Httpful\Response
+	 * @return array
 	 */
 	public function getFullAppList()
 	{
-		return $this->get(self::STEAM_API_ROOT, self::FULL_LIST_PATH . self::STEAM_API_RESP_TYPE);
+		return json_decode(
+			$this->get(
+				self::STEAM_API_ROOT,
+				self::FULL_LIST_PATH . self::STEAM_API_RESP_TYPE
+			),
+			true
+		);
 	}
 
 	/**
 	 * Retrieves Featured Steam Games Info and returns in JSON decoded format
 	 *
-	 * @return \Httpful\Response
+	 * @return App
 	 */
 	public function getFeaturedApps()
 	{
@@ -108,7 +114,7 @@ class Main
 	/**
 	 * Retrieves Featured Steam Games Info and returns in JSON decoded format
 	 *
-	 * @return \Httpful\Response
+	 * @return App
 	 */
 	public function getFeaturedCategories()
 	{
@@ -120,7 +126,7 @@ class Main
 	 *
 	 * @param int $appId
 	 *
-	 * @return \Httpful\Response
+	 * @return App
 	 */
 	public function getAppDetails($appId)
 	{
