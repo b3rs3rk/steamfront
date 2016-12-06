@@ -1,0 +1,27 @@
+{
+  "name": "b3rs3rk/steamfront",
+  "config": {
+    "process-timeout": 3600,
+    "preferred-install": {
+      "*": "source"
+    },
+    "vendor-dir": "libraries"
+  },
+  "description": "PHP Wrapper for Accessing the Steam Storefront API",
+  "minimum-stability": "stable",
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "b3rs3rk",
+      "email": "b3rs3rk@protonmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "b3rs3rk\\": ""
+    }
+  },
+  "require": {
+    "nategood/httpful": "*"
+  }
+}
