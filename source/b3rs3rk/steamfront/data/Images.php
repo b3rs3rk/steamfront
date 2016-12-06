@@ -21,9 +21,25 @@
 
 namespace b3rs3rk\steamfront\data;
 
+/**
+ * Class Images
+ *
+ * @package b3rs3rk\steamfront\data
+ */
 class Images
 {
+	/**
+	 * @var
+	 */
 	protected $headers;
+
+	/**
+	 * @var
+	 */
 	protected $screenshots;
+
+	/**
+	 * @var
+	 */
 	protected $backgrounds;
 }

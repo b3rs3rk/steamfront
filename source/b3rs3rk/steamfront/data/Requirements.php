@@ -21,9 +21,25 @@
 
 namespace b3rs3rk\steamfront\data;
 
+/**
+ * Class Requirements
+ *
+ * @package b3rs3rk\steamfront\data
+ */
 class Requirements
 {
+	/**
+	 * @var
+	 */
 	protected $pc;
+
+	/**
+	 * @var
+	 */
 	protected $mac;
+
+	/**
+	 * @var
+	 */
 	protected $linux;
 }

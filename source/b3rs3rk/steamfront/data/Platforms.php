@@ -21,9 +21,25 @@
 
 namespace b3rs3rk\steamfront\data;
 
+/**
+ * Class Platforms
+ *
+ * @package b3rs3rk\steamfront\data
+ */
 class Platforms
 {
+	/**
+	 * @var
+	 */
 	protected $windows;
+
+	/**
+	 * @var
+	 */
 	protected $mac;
+
+	/**
+	 * @var
+	 */
 	protected $linux;
 }
