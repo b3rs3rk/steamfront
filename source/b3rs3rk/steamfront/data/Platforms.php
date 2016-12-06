@@ -31,15 +31,15 @@ class Platforms
 	/**
 	 * @var
 	 */
-	protected $windows;
+	public $windows;
 
 	/**
 	 * @var
 	 */
-	protected $mac;
+	public $mac;
 
 	/**
 	 * @var
 	 */
-	protected $linux;
+	public $linux;
 }

@@ -26,35 +26,49 @@ namespace b3rs3rk\steamfront\http;
  *
  * @package b3rs3rk\steamfront
  */
+/**
+ * Class Http
+ *
+ * @package b3rs3rk\steamfront\http
+ */
 class Http
 {
 	/**
-	 * Http constructor.
+	 * @param string $url The url cUrl should get
 	 *
-	 * @param string $url
+	 * @return string The cUrl response data -- if JSON detected, decode first
+	 * @throws HttpException Thrown if not 200 OK
 	 */
-	public function __construct($url)
-	{
-		return $this->get($url);
-	}
-
-	protected function get($url, array $params = array(), $method = 'get')
+	public static function get($url)
 	{
 		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_HEADER, 1);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		if ($method == 'post') {
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-		}
+
+		curl_setopt_array(
+			$ch,
+			[
+				CURLOPT_HEADER         => 1,
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_SSL_VERIFYPEER => 0,
+			]
+		);
+
 		$response = curl_exec($ch);
-		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-		$data = substr($response, $headerSize);
-		curl_close($ch);
-		if ($httpCode != 200) {
-			throw new HttpException('Could not reach ' . $url, $httpCode);
+
+		$responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		if ($responseCode != 200) {
+			throw new HttpException('Could not reach ' . $url, $responseCode);
 		}
-		return $data;
+		$contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+		$headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+
+		curl_close($ch);
+
+		$response = substr($response, $headerSize);
+
+		if(stripos($contentType, 'application/json') !== false) {
+			$response = json_decode($response, true);
+		}
+
+		return $response;
 	}
 }

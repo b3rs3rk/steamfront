@@ -21,10 +21,30 @@
 
 namespace b3rs3rk\steamfront\data;
 
+/**
+ * Class PackageGroups
+ *
+ * @package b3rs3rk\steamfront\data
+ */
 class PackageGroups
 {
-	protected $name;
-	protected $title;
-	protected $description;
-	protected $recurring;
+	/**
+	 * @var
+	 */
+	public $name;
+
+	/**
+	 * @var
+	 */
+	public $title;
+
+	/**
+	 * @var
+	 */
+	public $description;
+
+	/**
+	 * @var
+	 */
+	public $recurring;
 }

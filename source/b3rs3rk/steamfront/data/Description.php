@@ -26,15 +26,23 @@ class Description
 	/**
 	 * @var string Long description
 	 */
-	protected $fulldesc;
-
+	public $full;
 	/**
 	 * @var string About the app text
 	 */
-	protected $about;
+	public $about;
 
 	/**
 	 * @var string Shortened description
 	 */
-	protected $shortdesc;
+	public $short;
+
+	public function __construct($data)
+	{
+		$this->full = $data['detailed_description'];
+		$this->short = $data['short_description'];
+		$this->about = $data['about_the_game'];
+
+		return $this;
+	}
 }

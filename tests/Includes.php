@@ -19,27 +19,8 @@
  * @copyright 2016
  */
 
-namespace b3rs3rk\steamfront\data;
+$path = '/../source/b3rs3rk/steamfront/';
 
-/**
- * Class Images
- *
- * @package b3rs3rk\steamfront\data
- */
-class Images
-{
-	/**
-	 * @var
-	 */
-	public $headers;
-
-	/**
-	 * @var
-	 */
-	public $screenshots;
-
-	/**
-	 * @var
-	 */
-	public $backgrounds;
-}
+require_once (__DIR__ . $path . 'Main.php');
+require_once (__DIR__ . $path . '/http/Http.php');
+require_once (__DIR__ . $path . '/http/HttpException.php');

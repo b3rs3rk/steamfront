@@ -19,20 +19,24 @@
  * @copyright 2016
  */
 
-require(__DIR__ . '/../source/b3rs3rk/steamfront/Main.php');
-require(__DIR__ . '/../source/b3rs3rk/steamfront/App.php');
+include (__DIR__ . '/Includes.php');
 
-$steamApp = new b3rs3rk\steamfront\App(array());
+$client = new b3rs3rk\steamfront\Main();
 
 $testAppID = isset($argv[1]) && is_numeric($argv[1]) ? $argv[1] : 30;
 
-$test = $steamApp->getAppDetails($testAppID);
+var_dump($client->get($client::STEAM_STORE_ROOT, $client::DETAILS_PATH . $testAppID));
 
-if ($test instanceof \Httpful\Response) {
-	if (isset($test->body)) {
-		var_dump($test->body->$testAppID);
+/*
+
+$test = $client->getAppDetails($testAppID);
+
+if ($test instanceof b3rs3rk\steamfront\data\App) {
+	if (isset($test)) {
+		var_dump($test);
 		exit(0);
 	} else {
 		exit(1);
 	}
 }
+*/

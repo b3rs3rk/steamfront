@@ -78,11 +78,13 @@ class Main
 	{
 		$url = $root . $path;
 
-		 $response = json_decode(new Http($url), true);
+		$response = Http::get($url);
 
-		if (isset($response['success']) && $response['success'] === true) {
+		if (is_array($response)) {
+
 			return $response;
 		} else {
+
 			return false;
 		}
 	}
@@ -94,22 +96,24 @@ class Main
 	 */
 	public function getFullAppList()
 	{
-		return json_decode(
-			$this->get(
-				self::STEAM_API_ROOT,
-				self::FULL_LIST_PATH . self::STEAM_API_RESP_TYPE
-			), true
-		);
+		return $this->get(self::STEAM_API_ROOT, self::FULL_LIST_PATH . self::STEAM_API_RESP_TYPE);
 	}
 
 	/**
 	 * Retrieves Featured Steam Games Info and returns in JSON decoded format
 	 *
-	 * @return App
+	 * @return array App object returns
 	 */
 	public function getFeaturedApps()
 	{
-		return new App($this->get(self::STEAM_STORE_ROOT, self::FEATURED_PATH));
+		$return = array();
+
+		$featured = $this->get(self::STEAM_STORE_ROOT, self::FEATURED_PATH);
+		foreach ($featured AS $app) {
+			$return[] = new App($app);
+		}
+
+		return $return;
 	}
 
 	/**
@@ -125,12 +129,14 @@ class Main
 	/**
 	 * Retrieves App information for a specific AppID
 	 *
-	 * @param int $appId
+	 * @param int $id
 	 *
 	 * @return App
 	 */
-	public function getAppDetails($appId)
+	public function getAppDetails($id)
 	{
-		return new App($this->get(self::STEAM_STORE_ROOT, self::DETAILS_PATH . $appId));
+		$app = $this->get(self::STEAM_STORE_ROOT, self::DETAILS_PATH . $id);
+
+		return new App($app[$id]['data']);
 	}
 }

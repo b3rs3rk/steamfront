@@ -21,10 +21,46 @@
 
 namespace b3rs3rk\steamfront\data;
 
+/**
+ * Class Pricing
+ *
+ * @package b3rs3rk\steamfront\data
+ */
 class Pricing
 {
 	/**
 	 * @var bool App is Free or Paid
 	 */
-	protected $isfree;
+	public $free;
+
+	/**
+	 * @var string Name of currency
+	 */
+	public $currency;
+
+	/**
+	 * @var int initial price in cents
+	 */
+	public $initial;
+
+	/**
+	 * @var int final price in cents
+	 */
+	public $final;
+
+	/**
+	 * @var int percentage of discount
+	 */
+	public $discountpct;
+
+	public function __construct($data)
+	{
+		$this->free        = $data['isfree'];
+		$this->currency    = $data['priceoverview']['currency'];
+		$this->initial     = $data['priceoverview']['initial'];
+		$this->final       = $data['priceoverview']['final'];
+		$this->discountpct = $data['priceoverview']['discount_percentage'];
+
+		return $this;
+	}
 }

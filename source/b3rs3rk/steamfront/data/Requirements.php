@@ -31,15 +31,24 @@ class Requirements
 	/**
 	 * @var
 	 */
-	protected $pc;
+	public $pc;
 
 	/**
 	 * @var
 	 */
-	protected $mac;
+	public $mac;
 
 	/**
 	 * @var
 	 */
-	protected $linux;
+	public $linux;
+
+	public function __construct($data)
+	{
+		$this->pc = $data['pc_requirements'];
+		$this->mac = $data['mac_requirements'];
+		$this->linux = $data['linux_requirements'];
+
+		return $this;
+	}
 }

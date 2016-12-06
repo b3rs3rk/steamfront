@@ -31,80 +31,105 @@ class App
 	/**
 	 * @var string Type of App
 	 */
-	protected $type;
+	public $type;
 
 	/**
 	 * @var string Name of App
 	 */
-	protected $name;
+	public $name;
 
 	/**
 	 * @var int ID of the App
 	 */
-	protected $appid;
+	public $appid;
 
 	/**
 	 * @var int Age Requirement
 	 */
-	protected $requiredage;
+	public $requiredage;
 
 	/**
 	 * @var string Supported in-app languages
 	 */
-	protected $languages;
+	public $languages;
 
 	/**
 	 * @var string Original app's website
 	 */
-	protected $website;
+	public $website;
 
 	/**
 	 * @var Requirements
 	 */
-	protected $requirements;
+	public $requirements;
 
 	/**
 	 * @var string Date of release
 	 */
-	protected $releasedate;
+	public $releasedate;
 
 	/**
 	 * @var
 	 */
-	protected $developers;
+	public $developers;
 
 	/**
 	 * @var
 	 */
-	protected $publishers;
+	public $publishers;
 
 	/**
 	 * @var Pricing
 	 */
-	protected $pricing;
+	public $pricing;
 
 	/**
 	 * @var Packages
 	 */
-	protected $packages;
+	public $packages;
 
 	/**
 	 * @var Platforms
 	 */
-	protected $platforms;
+	public $platforms;
 
 	/**
 	 * @var string
 	 */
-	protected $metacritic;
+	public $metacritic;
 
 	/**
-	 * @var
+	 * @var Categories
 	 */
-	protected $categories;
+	public $categories;
 
 	/**
-	 * @var
+	 * @var Images
 	 */
-	protected $images;
+	public $images;
+
+	public function __construct(array $data)
+	{
+		// General
+		$this->type = $data['type'];
+		$this->name = $data['name'];
+		$this->appid = $data['steam_appid'];
+		$this->requiredage = $data['required_age'];
+		$this->languages = $data['supported_languages'];
+		$this->website = $data['website'];
+		$this->developers = $data['devlopers'];
+		$this->publishers = $data['publishers'];
+		$this->metacritic = $data['metacritic'];
+		$this->recommends = $data['recommendations'];
+		$this->achievements = $data['achievements'];
+		$this->releasedate = $data['release_date'];
+		$this->supportinfo = $data['support_info'];
+
+		// Descriptions
+		$this->description = new Description($data);
+		// Requirements
+		$this->requirements = new Requirements($data);
+		// Pricing
+		$this->pricing = new Pricing($data);
+	}
 }
