@@ -96,7 +96,7 @@ class App
 	/**
 	 * @var string
 	 */
-	protected $metacrit;
+	protected $metacritic;
 
 	/**
 	 * @var

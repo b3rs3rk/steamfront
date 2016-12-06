@@ -19,8 +19,7 @@
  * @copyright 2016
  */
 
-namespace b3rs3rk\steamfront;
-
+namespace b3rs3rk\steamfront\data;
 
 class Platforms
 {
