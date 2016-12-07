@@ -12,7 +12,7 @@ namespaces.
 
 Once you've got it running (autoload used below), simply invoke the client and perform a sample query:
 
-```
+```php
 <?php
 
 use b3rs3rk\steamfront\Main;
