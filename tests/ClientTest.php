@@ -23,7 +23,7 @@ include (__DIR__ . '/Includes.php');
 
 $client = new b3rs3rk\steamfront\Main();
 
-$testAppID = isset($argv[1]) && is_numeric($argv[1]) ? $argv[1] : 30;
+$testAppID = isset($argv[1]) && is_numeric($argv[1]) ? $argv[1] : 30;  // Default is Day of Defeat
 
 $test = $client->getAppDetails($testAppID);
 

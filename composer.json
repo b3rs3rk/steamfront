@@ -13,5 +13,10 @@
     "psr-0": {
       "b3rs3rk\\": "source"
     }
+  },
+  "require": {
+    "php": ">=5.4.0",
+    "ext-curl": "*",
+    "ext-json": "*"
   }
 }
