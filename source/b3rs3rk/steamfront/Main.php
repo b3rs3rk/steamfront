@@ -27,7 +27,7 @@ use b3rs3rk\steamfront\data\App;
 /**
  * Class SteamFront
  *
- * @package steamfront\source
+ * @package b3rs3rk\steamfront
  */
 class Main
 {
@@ -127,9 +127,11 @@ class Main
 	 *
 	 * @return App
 	 */
-	public function getAppDetails($id, $filter = 'basic')
+	public function getAppDetails($id, $filter = '')
 	{
-		$filter = '&filters=' . $filter;
+		if ($filter !== '') {
+			$filter = '&filters=' . $filter;
+		}
 
 		$app = $this->get(self::STEAM_STORE_ROOT, self::DETAILS_PATH . $id . $filter);
 
