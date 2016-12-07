@@ -202,7 +202,7 @@ class App
 
 		foreach($keys AS $key => $value) {
 			if (isset($this->data[$value])) {
-				$this->description[$key] = $this->data[$value];
+				$this->description[$key] = strip_tags($this->data[$value]);
 			}
 		}
 	}
@@ -222,7 +222,7 @@ class App
 
 		foreach($keys AS $key => $value) {
 			if (isset($this->data[$value])) {
-				$this->requirements[$key] = $this->data[$value];
+				$this->requirements[$key] = strip_tags($this->data[$value]);
 			}
 		}
 	}
