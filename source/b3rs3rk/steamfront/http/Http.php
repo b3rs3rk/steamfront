@@ -24,11 +24,6 @@ namespace b3rs3rk\steamfront\http;
 /**
  * Class Http
  *
- * @package b3rs3rk\steamfront
- */
-/**
- * Class Http
- *
  * @package b3rs3rk\steamfront\http
  */
 class Http

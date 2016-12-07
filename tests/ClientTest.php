@@ -27,11 +27,18 @@ $testAppID = isset($argv[1]) && is_numeric($argv[1]) ? $argv[1] : 30;
 
 $test = $client->getAppDetails($testAppID);
 
-if ($test instanceof b3rs3rk\steamfront\data\App) {
-	if (isset($test)) {
-		var_dump($test);
-		exit(0);
-	} else {
-		exit(1);
-	}
+if (!$test instanceof b3rs3rk\steamfront\data\App) {
+	exit(1);
+}
+
+$test = $client->getFeaturedApps();
+
+if (!is_array($test)) {
+	exit(1);
+}
+
+$test = $client->getFeaturedCategories();
+
+if (!is_array($test)) {
+	exit(1);
 }

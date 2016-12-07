@@ -194,9 +194,17 @@ class App
 	 */
 	protected function setDescriptions()
 	{
-		$this->description['detailed'] = $this->data['detailed_description'];
-		$this->description['short']    = $this->data['short_description'];
-		$this->description['about']    = $this->data['about_the_game'];
+		$keys = [
+			'detailed' => 'detailed_description',
+			'short'    => 'short_description',
+			'about'    => 'about_the_game',
+		];
+
+		foreach($keys AS $key => $value) {
+			if (isset($this->data[$value])) {
+				$this->description[$key] = $this->data[$value];
+			}
+		}
 	}
 
 	/**
@@ -205,9 +213,18 @@ class App
 	protected function setSpecifications()
 	{
 		$this->setMatching('platforms');
-		$this->requirements['pc']    = $this->data['pc_requirements'];
-		$this->requirements['mac']   = $this->data['mac_requirements'];
-		$this->requirements['linux'] = $this->data['linux_requirements'];
+
+		$keys = [
+			'pc'    => 'pc_requirements',
+			'mac'   => 'mac_requirements',
+			'linux' => 'linux_requirements',
+		];
+
+		foreach($keys AS $key => $value) {
+			if (isset($this->data[$value])) {
+				$this->requirements[$key] = $this->data[$value];
+			}
+		}
 	}
 
 	/**
@@ -224,9 +241,17 @@ class App
 	 */
 	protected function setImages()
 	{
-		$this->images['header']      = $this->data['header_image'];
-		$this->images['background']  = $this->data['background'];
-		$this->images['screenshots'] = $this->data['screenshots'];
+		$keys = [
+			'header'      => 'header_image',
+			'background'  => 'background',
+			'screenshots' => 'screenshots',
+		];
+
+		foreach($keys AS $key => $value) {
+			if (isset($this->data[$value])) {
+				$this->images[$key] = $this->data[$value];
+			}
+		}
 	}
 
 	/**

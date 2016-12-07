@@ -106,14 +106,7 @@ class Main
 	 */
 	public function getFeaturedApps()
 	{
-		$return = array();
-
-		$featured = $this->get(self::STEAM_STORE_ROOT, self::FEATURED_PATH);
-		foreach ($featured AS $app) {
-			$return[] = new App($app);
-		}
-
-		return $return;
+		 return $this->get(self::STEAM_STORE_ROOT, self::FEATURED_PATH);
 	}
 
 	/**
@@ -123,19 +116,22 @@ class Main
 	 */
 	public function getFeaturedCategories()
 	{
-		return new App($this->get(self::STEAM_STORE_ROOT, self::FEATURED_CATS_PATH));
+		return $this->get(self::STEAM_STORE_ROOT, self::FEATURED_CATS_PATH);
 	}
 
 	/**
 	 * Retrieves App information for a specific AppID
 	 *
-	 * @param int $id
+	 * @param int    $id The id argument settings value for the API query
+	 * @param string $filter The filter argument settings value for the API query
 	 *
 	 * @return App
 	 */
-	public function getAppDetails($id)
+	public function getAppDetails($id, $filter = 'basic')
 	{
-		$app = $this->get(self::STEAM_STORE_ROOT, self::DETAILS_PATH . $id);
+		$filter = '&filters=' . $filter;
+
+		$app = $this->get(self::STEAM_STORE_ROOT, self::DETAILS_PATH . $id . $filter);
 
 		return new App($app[$id]['data']);
 	}
