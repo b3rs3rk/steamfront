@@ -200,11 +200,7 @@ class App
 			'about'    => 'about_the_game',
 		];
 
-		foreach($keys AS $key => $value) {
-			if (isset($this->data[$value])) {
-				$this->description[$key] = strip_tags($this->data[$value]);
-			}
-		}
+		$this->setVarWithArray('description', $keys);
 	}
 
 	/**
@@ -220,11 +216,7 @@ class App
 			'linux' => 'linux_requirements',
 		];
 
-		foreach($keys AS $key => $value) {
-			if (isset($this->data[$value])) {
-				$this->requirements[$key] = strip_tags($this->data[$value]);
-			}
-		}
+		$this->setVarWithArray('requirements', $keys);
 	}
 
 	/**
@@ -247,11 +239,7 @@ class App
 			'screenshots' => 'screenshots',
 		];
 
-		foreach($keys AS $key => $value) {
-			if (isset($this->data[$value])) {
-				$this->images[$key] = $this->data[$value];
-			}
-		}
+		$this->setVarWithArray('images', $keys);
 	}
 
 	/**
@@ -265,10 +253,10 @@ class App
 	/**
 	 * Sets the named class value to the differently named key
 	 *
-	 * @param string $classvar
-	 * @param string $key
+	 * @param string $classvar The class variable to set
+	 * @param string $key The non matching key to retrieve the data from
 	 */
-	protected function setNonMatching($classvar, $key)
+	protected function setNonMatching(string $classvar, string $key)
 	{
 		if (isset($this->data[$key])) {
 			$this->$classvar = $this->data[$key];
@@ -278,12 +266,33 @@ class App
 	/**
 	 * Sets the class value to the key value with the same key name
 	 *
-	 * @param string $key
+	 * @param string $key The matching key data to class value to set
 	 */
-	protected function setMatching($key)
+	protected function setMatching(string $key)
 	{
 		if (isset($this->data[$key])) {
 			$this->$key = $this->data[$key];
+		}
+	}
+
+	/**
+	 * Sets a class value based on an associative array of keys to their values
+	 *
+	 * @param string $classvar The class variable to set
+	 * @param array $slice The array of data keys and values to match
+	 */
+	protected function setVarWithArray(string $classvar, array $slice)
+	{
+		foreach($slice AS $key => $value) {
+			if (isset($this->data[$value])) {
+				$keydata = $this->data[$value];
+				if (is_array($keydata)) {
+					array_walk_recursive($keydata, 'strip_tags');
+				} else {
+					$keydata = strip_tags($keydata);
+				}
+				$this->$classvar[$key] = $keydata;
+			}
 		}
 	}
 }

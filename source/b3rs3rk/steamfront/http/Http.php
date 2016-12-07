@@ -34,7 +34,7 @@ class Http
 	 * @return string The cUrl response data -- if JSON detected, decode first
 	 * @throws HttpException Thrown if not 200 OK
 	 */
-	public static function get($url)
+	public static function get(string $url)
 	{
 		$ch = curl_init($url);
 

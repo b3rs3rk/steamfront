@@ -74,7 +74,7 @@ class Main
 	 *
 	 * @return array|bool The JSON decoded response or false
 	 */
-	public function get($root, $path)
+	public function get(string $root, string $path)
 	{
 		$url = $root . $path;
 
@@ -112,7 +112,7 @@ class Main
 	/**
 	 * Retrieves Featured Steam Games Info and returns in JSON decoded format
 	 *
-	 * @return App
+	 * @return array|bool
 	 */
 	public function getFeaturedCategories()
 	{
@@ -127,7 +127,7 @@ class Main
 	 *
 	 * @return App
 	 */
-	public function getAppDetails($id, $filter = '')
+	public function getAppDetails(int $id, string $filter = '')
 	{
 		if ($filter !== '') {
 			$filter = '&filters=' . $filter;
