@@ -18,5 +18,11 @@
     "php": ">=5.4.0",
     "ext-curl": "*",
     "ext-json": "*"
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/b3rs3rk/steamfront"
+    }
+  ]
 }
