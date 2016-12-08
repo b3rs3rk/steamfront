@@ -67,6 +67,33 @@ class Main
 	const DETAILS_PATH = 'api/appdetails?appids=';
 
 	/**
+	 * @var string The two letter country code from which to retrieve localized currency information
+	 */
+	protected $countryCode;
+
+	/**
+	 * @var string The language (in English) from which to retrieve localized strings e.g. German, Italian
+	 */
+	protected $localLang;
+
+	/**
+	 * Main constructor.
+	 *
+	 * @param array $options
+	 */
+	public function __construct(array $options = array())
+	{
+		$defaults = [
+			'country_code' => 'us',
+		    'local_lang'   => 'english',
+		];
+		$options += $defaults;
+
+		$this->countryCode = '&cc=' . $options['country_code'];
+		$this->localLang = '&l=' . $options['local_lang'];
+	}
+
+	/**
 	 * Gets requested data using Http client and returns the json decoded response
 	 *
 	 * @param string $root The root url of the request
@@ -78,7 +105,7 @@ class Main
 	{
 		$url = $root . $path;
 
-		$response = Http::get($url);
+		$response = Http::get($url . $this->countryCode . $this->localLang);
 
 		if (is_array($response)) {
 

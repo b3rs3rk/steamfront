@@ -27,7 +27,7 @@ $testAppID = isset($argv[1]) && is_numeric($argv[1]) ? $argv[1] : 30;  // Defaul
 
 $test = $client->getAppDetails($testAppID);
 
-if (!$test instanceof b3rs3rk\steamfront\data\App) {
+if (!$test instanceof b3rs3rk\steamfront\data\App && !empty($test)) {
 	if (isset($argv[2]) && $argv[2] === 'debug') {
 		var_dump($test);
 	}
@@ -36,7 +36,7 @@ if (!$test instanceof b3rs3rk\steamfront\data\App) {
 
 $test = $client->getFeaturedApps();
 
-if (!is_array($test)) {
+if (!is_array($test) && !empty($test)) {
 	if (isset($argv[2]) && $argv[2] === 'debug') {
 		var_dump($test);
 	}
@@ -45,7 +45,7 @@ if (!is_array($test)) {
 
 $test = $client->getFeaturedCategories();
 
-if (!is_array($test)) {
+if (!is_array($test)&& !empty($test)) {
 	if (isset($argv[2]) && $argv[2] === 'debug') {
 		var_dump($test);
 	}

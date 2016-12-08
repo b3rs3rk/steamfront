@@ -17,7 +17,12 @@ Once you've got it running (autoload used below), simply invoke the client and p
 
 use b3rs3rk\steamfront\Main;
 
-$client = new b3rs3rk\steamfront\Main();
+$client = new b3rs3rk\steamfront\Main(
+	[
+		'country_code' => 'us',
+		'local_lang' => 'english'
+	]
+);
 
 $data = $client->getFeaturedApps();
 
