@@ -49,12 +49,12 @@ class Main
 	/**
 	 * Path to the JSON encoded list of all Steam AppIDs
 	 */
-	const FULL_LIST_PATH = 'ISteamApps/GetAppList/v2/';
+	const APPS_FULL_LIST_PATH = 'ISteamApps/GetAppList/v2/';
 
 	/**
 	 * Path to featured apps request
 	 */
-	const FEATURED_PATH = 'api/featured/';
+	const FEATURED_APPS_PATH = 'api/featured/';
 
 	/**
 	 * Path to featured categories request';
@@ -64,7 +64,7 @@ class Main
 	/**
 	 * Path to App details request
 	 */
-	const DETAILS_PATH = 'api/appdetails?appids=';
+	const APP_DETAILS_PATH = 'api/appdetails?appids=';
 
 	/**
 	 * @var string The two letter country code from which to retrieve localized currency information
@@ -117,13 +117,13 @@ class Main
 	}
 
 	/**
-	 * Retrieves Full Stea Library Info and returns in JSON decoded format
+	 * Retrieves full Steam library info and returns in JSON decoded format
 	 *
 	 * @return array
 	 */
 	public function getFullAppList()
 	{
-		return $this->get(self::STEAM_API_ROOT, self::FULL_LIST_PATH . self::STEAM_API_RESP_TYPE);
+		return $this->get(self::STEAM_API_ROOT, self::APPS_FULL_LIST_PATH . self::STEAM_API_RESP_TYPE);
 	}
 
 	/**
@@ -133,7 +133,7 @@ class Main
 	 */
 	public function getFeaturedApps()
 	{
-		 return $this->get(self::STEAM_STORE_ROOT, self::FEATURED_PATH);
+		 return $this->get(self::STEAM_STORE_ROOT, self::FEATURED_APPS_PATH);
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Main
 			$filter = '&filters=' . $filter;
 		}
 
-		$app = $this->get(self::STEAM_STORE_ROOT, self::DETAILS_PATH . $id . $filter);
+		$app = $this->get(self::STEAM_STORE_ROOT, self::APP_DETAILS_PATH . $id . $filter);
 
 		return new App($app[$id]['data']);
 	}

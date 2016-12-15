@@ -154,10 +154,10 @@ class App
 	 */
 	protected function setCritical()
 	{
-		$this->setNonMatching('appid', 'steam_appid');
+		$this->setNonMatching($this->appid, 'steam_appid');
 		$this->setMatching('type');
 		$this->setMatching('name');
-		$this->setNonMatching('releasedate', 'release_date');
+		$this->setNonMatching($this->releasedate, 'release_date');
 	}
 
 	/**
@@ -174,8 +174,8 @@ class App
 	 */
 	protected function setDemographics()
 	{
-		$this->setNonMatching('requiredage', 'required_age');
-		$this->setNonMatching('languages', 'supoorted_languages');
+		$this->setNonMatching($this->requiredage, 'required_age');
+		$this->setNonMatching($this->languages, 'supoorted_languages');
 	}
 
 	/**
@@ -186,7 +186,7 @@ class App
 		$this->setMatching('developers');
 		$this->setMatching('publishers');
 		$this->setMatching('website');
-		$this->setNonMatching('supportinfo', 'support_info');
+		$this->setNonMatching($this->supportinfo, 'support_info');
 	}
 
 	/**
@@ -200,7 +200,7 @@ class App
 			'about'    => 'about_the_game',
 		];
 
-		$this->setVarWithArray('description', $keys);
+		$this->setVarWithArray($this->description, $keys);
 	}
 
 	/**
@@ -216,7 +216,7 @@ class App
 			'linux' => 'linux_requirements',
 		];
 
-		$this->setVarWithArray('requirements', $keys);
+		$this->setVarWithArray($this->requirements, $keys);
 	}
 
 	/**
@@ -239,7 +239,7 @@ class App
 			'screenshots' => 'screenshots',
 		];
 
-		$this->setVarWithArray('images', $keys);
+		$this->setVarWithArray($this->images, $keys);
 	}
 
 	/**
@@ -247,19 +247,19 @@ class App
 	 */
 	protected function setPricing()
 	{
-		$this->setNonMatching('pricing', 'price_overview');
+		$this->setNonMatching($this->pricing, 'price_overview');
 	}
 
 	/**
 	 * Sets the named class value to the differently named key
 	 *
-	 * @param string $classvar The class variable to set
+	 * @var $this->$classvar The class variable to set
 	 * @param string $key The non matching key to retrieve the data from
 	 */
-	protected function setNonMatching(string $classvar, string $key)
+	protected function setNonMatching(&$classvar, string $key)
 	{
 		if (isset($this->data[$key])) {
-			$this->$classvar = $this->data[$key];
+			$classvar = $this->data[$key];
 		}
 	}
 
@@ -278,10 +278,10 @@ class App
 	/**
 	 * Sets a class value based on an associative array of keys to their values
 	 *
-	 * @param string $classvar The class variable to set
+	 * @var $this->$classvar The class variable to set
 	 * @param array $slice The array of data keys and values to match
 	 */
-	protected function setVarWithArray(string $classvar, array $slice)
+	protected function setVarWithArray(&$classvar, array $slice)
 	{
 		foreach($slice AS $key => $value) {
 			if (isset($this->data[$value])) {
@@ -291,7 +291,7 @@ class App
 				} else {
 					$keydata = strip_tags($keydata);
 				}
-				$this->$classvar[$key] = $keydata;
+				$classvar[$key] = $keydata;
 			}
 		}
 	}
