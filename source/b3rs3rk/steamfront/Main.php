@@ -119,7 +119,7 @@ class Main
 	/**
 	 * Retrieves full Steam library info and returns in JSON decoded format
 	 *
-	 * @return array
+	 * @return array Steam library full app listing decoded JSON response
 	 */
 	public function getFullAppList()
 	{
@@ -129,7 +129,7 @@ class Main
 	/**
 	 * Retrieves Featured Steam Games Info and returns in JSON decoded format
 	 *
-	 * @return array App object returns
+	 * @return array Featured applications -- no manipulation
 	 */
 	public function getFeaturedApps()
 	{
@@ -152,11 +152,11 @@ class Main
 	 * @param int    $id The id argument settings value for the API query
 	 * @param string $filter The filter argument settings value for the API query
 	 *
-	 * @return App
+	 * @return App The normalized data return for the requested Steam Application ID
 	 */
 	public function getAppDetails(int $id, string $filter = '')
 	{
-		if ($filter !== '') {
+		if (!empty($filter)) {
 			$filter = '&filters=' . $filter;
 		}
 

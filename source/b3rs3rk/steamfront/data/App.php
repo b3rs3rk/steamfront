@@ -129,7 +129,7 @@ class App
 	public $recommendations;
 
 	/**
-	 * App constructor.
+	 * App constructor.  Calls all sub-functions to fill class variables
 	 *
 	 * @param array $data
 	 */
@@ -146,7 +146,7 @@ class App
 		$this->setImages();
 		$this->setPricing();
 
-		unset($this->data);
+		unset($this->data); // Unset $data or raw response is returned with class object
 	}
 
 	/**
@@ -256,10 +256,10 @@ class App
 	 * @var $this->$classvar The class variable to set
 	 * @param string $key The non matching key to retrieve the data from
 	 */
-	protected function setNonMatching(&$classvar, string $key)
+	protected function setNonMatching(&$classVar, string $key)
 	{
 		if (isset($this->data[$key])) {
-			$classvar = $this->data[$key];
+			$classVar = $this->data[$key];
 		}
 	}
 
@@ -276,12 +276,13 @@ class App
 	}
 
 	/**
-	 * Sets a class value based on an associative array of keys to their values
+	 * Sets an array type class variable based on an associative array of keys as their values
+	 * Checks each key to make sure it exists and strips html tags from API response to normalize data
 	 *
 	 * @var $this->$classvar The class variable to set
 	 * @param array $slice The array of data keys and values to match
 	 */
-	protected function setVarWithArray(&$classvar, array $slice)
+	protected function setVarWithArray(&$classVar, array $slice)
 	{
 		foreach($slice AS $key => $value) {
 			if (isset($this->data[$value])) {
@@ -291,7 +292,7 @@ class App
 				} else {
 					$keydata = strip_tags($keydata);
 				}
-				$classvar[$key] = $keydata;
+				$classVar[$key] = $keydata;
 			}
 		}
 	}
