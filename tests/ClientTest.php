@@ -52,4 +52,4 @@ if (!is_array($test)&& !empty($test)) {
 	exit(1);
 }
 
-exit('All tests completed successfully.');
+exit('All tests completed successfully.' . PHP_EOL . PHP_EOL);
