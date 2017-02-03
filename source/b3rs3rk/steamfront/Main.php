@@ -152,7 +152,7 @@ class Main
 	 * @param int    $id The id argument settings value for the API query
 	 * @param string $filter The filter argument settings value for the API query
 	 *
-	 * @return App The normalized data return for the requested Steam Application ID
+	 * @return false|App The normalized data return for the requested Steam Application ID
 	 */
 	public function getAppDetails(int $id, string $filter = '')
 	{
@@ -162,6 +162,10 @@ class Main
 
 		$app = $this->get(self::STEAM_STORE_ROOT, self::APP_DETAILS_PATH . $id . $filter);
 
-		return new App($app[$id]['data']);
+		if (isset($app[$id]['data'])) {
+			return new App($app[$id]['data']);
+		} else {
+			return false;
+		}
 	}
 }

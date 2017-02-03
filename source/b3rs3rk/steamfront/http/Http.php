@@ -31,7 +31,7 @@ class Http
 	/**
 	 * @param string $url The url cUrl should get
 	 *
-	 * @return string The cUrl response data -- if JSON detected, decode first
+	 * @return string|array The cUrl response data -- if JSON detected, decode first
 	 * @throws HttpException Thrown if not 200 OK
 	 */
 	public static function get(string $url)
@@ -59,6 +59,10 @@ class Http
 		curl_close($ch);
 
 		$response = substr($response, $headerSize);
+
+		if (is_null($response)) {
+			throw new HttpException('You are exceeding the API request limit.  Please wait longer between requests.', 400);
+		}
 
 		if(stripos($contentType, 'application/json') !== false) {
 			$response = json_decode($response, true);
