@@ -162,7 +162,7 @@ class Main
 
 		$app = $this->get(self::STEAM_STORE_ROOT, self::APP_DETAILS_PATH . $id . $filter);
 
-		if (isset($app[$id]['data'])) {
+		if ($app[$id]['success'] == true) {
 			return new App($app[$id]['data']);
 		} else {
 			return false;

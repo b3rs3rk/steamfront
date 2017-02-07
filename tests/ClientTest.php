@@ -27,11 +27,11 @@ $testAppID = isset($argv[1]) && is_numeric($argv[1]) ? $argv[1] : 30;  // Defaul
 
 $test = $client->getAppDetails($testAppID);
 
-if (!$test instanceof b3rs3rk\steamfront\data\App && !empty($test)) {
+if (!$test instanceof b3rs3rk\steamfront\data\App) {
 	if (isset($argv[2]) && $argv[2] === 'debug') {
 		var_dump($test);
 	}
-	exit(1);
+	throw new Exception("Bad response from API for AppID: {$testAppID}", 1);
 }
 
 $test = $client->getFeaturedApps();
@@ -40,16 +40,16 @@ if (!is_array($test) && !empty($test)) {
 	if (isset($argv[2]) && $argv[2] === 'debug') {
 		var_dump($test);
 	}
-	exit(1);
+	throw new Exception("Bad response from API for Featured App List", 2);
 }
 
 $test = $client->getFeaturedCategories();
 
-if (!is_array($test)&& !empty($test)) {
+if (!is_array($test) && !empty($test)) {
 	if (isset($argv[2]) && $argv[2] === 'debug') {
 		var_dump($test);
 	}
-	exit(1);
+	throw new Exception("Bad response from API for Featured Categories", 3);
 }
 
 exit('All tests completed successfully.' . PHP_EOL . PHP_EOL);
