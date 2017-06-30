@@ -101,7 +101,7 @@ class Main
 	 *
 	 * @return array|bool The JSON decoded response or false
 	 */
-	public function get(string $root, string $path)
+	public function get($root, $path)
 	{
 		$url = $root . $path;
 
@@ -154,7 +154,7 @@ class Main
 	 *
 	 * @return false|App The normalized data return for the requested Steam Application ID
 	 */
-	public function getAppDetails(int $id, string $filter = '')
+	public function getAppDetails($id, $filter = '')
 	{
 		if (!empty($filter)) {
 			$filter = '&filters=' . $filter;
