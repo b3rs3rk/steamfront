@@ -1,5 +1,5 @@
 {
-  "name": "b3rs3rk/steamfront",
+  "name": "niel/steamfront",
   "description": "PHP Wrapper for Accessing the Steam Storefront API",
   "minimum-stability": "stable",
   "license": "GPL-3.0",
@@ -15,7 +15,7 @@
     }
   },
   "require": {
-    "php": ">=5.4.0",
+    "php": ">=5.6.0",
     "ext-curl": "*",
     "ext-json": "*"
   }
